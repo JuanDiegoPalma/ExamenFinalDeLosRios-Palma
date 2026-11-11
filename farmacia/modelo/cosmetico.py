@@ -26,9 +26,9 @@ class Cosmetico(Producto):
             f"importe_adicional={self.importe_adicional})"
         )
 
-def __repr__(self):
-    return (
-        f"Cosmetico(precio_base={self.precio_base}, "
-        f"ubicacion='{self.ubicacion}', "
-        f"importe_adicional={self.importe_adicional})"
-    )
+    def __repr__(self):
+        return (
+            f"Cosmetico(precio_base={self.precio_base}, "
+            f"ubicacion='{self.ubicacion}', "
+            f"importe_adicional={self.importe_adicional})"
+        )
