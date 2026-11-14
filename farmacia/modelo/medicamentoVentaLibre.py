@@ -9,4 +9,4 @@ class MedicamentoVentaLibre(Medicamento):
         return self.precio_base + extra
 
     def texto(self):
-        return "Medicamento de venta libre"
+        return "Medicamento de Venta Libre"
