@@ -22,7 +22,13 @@ class Estanteria:
     def almacenar_producto(self, producto):
         if not isinstance(producto, Producto):
             raise TypeError("Solo se pueden almacenar productos.")
-
+        
+## Evita almacenar el mismo producto mas de una vez 
+        for fila_actual in self.matriz:
+            for producto_actual in fila_actual:
+                if producto_actual is producto:
+                    raise ValueError("El producto ya está almacenado.")
+        
         posicion_libre = self.buscar_espacio_libre()
         if posicion_libre is None:
             raise OverflowError("La estantería está llena.")
