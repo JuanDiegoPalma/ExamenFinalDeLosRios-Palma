@@ -11,7 +11,7 @@ class Medicamento(Producto):
         )
 
     def calcular_precio(self, extra=0):
-        return super().calcular_precio(extra) + self.importe_adicional
+        return super().calcular_precio(extra)
 
     def texto(self):
         descripcion = super().texto()
