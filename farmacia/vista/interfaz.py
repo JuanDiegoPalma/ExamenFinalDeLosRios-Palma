@@ -12,7 +12,7 @@ class InterfazFarmacia:
         self.producto_pendiente = None
 
         self.ventana.title("Sistema de Farmacia")
-        self.ventana.geometry("550x420")
+        self.ventana.geometry("550x500")
 
         formulario = ttk.Frame(self.ventana, padding=20)
         formulario.pack(fill="both", expand=True)
@@ -59,6 +59,13 @@ class InterfazFarmacia:
             text="Calcular precio",
             command=self.calcular_precio
         ).pack(pady=12)
+        
+        ttk.Button(
+            formulario,
+            text="Confirmar compra",
+            command=self.confirmar_compra
+        ).pack(pady=8)
+
 
         ttk.Label(
             formulario,
@@ -85,6 +92,46 @@ class InterfazFarmacia:
             self.producto_pendiente = None
             self.resultado.set("Precio final: -")
             messagebox.showerror("Datos incorrectos", str(error))
+
+    def confirmar_compra(self):
+
+        if self.producto_pendiente is None:
+            messagebox.showwarning(
+                "Atención",
+                "Primero debe calcular el precio del producto."
+            )
+            return
+
+        try:
+            cliente = self.controlador.crear_cliente(
+                self.entrada_nombre.get(),
+                self.entrada_edad.get()
+            )
+
+            producto = self.producto_pendiente
+
+            ubicacion = self.controlador.confirmar_producto(producto)
+
+            precio_final = producto.calcular_precio(
+                producto.importe_adicional
+            )
+
+            messagebox.showinfo(
+                "Compra confirmada",
+                f"Cliente: {cliente.get_nombre()}\n"
+                f"Producto: {producto.subtipo}\n"
+                f"Precio final: ${precio_final:.2f}\n"
+                f"Ubicación: {ubicacion}"
+            )
+
+            self.producto_pendiente = None
+
+        except (ValueError, TypeError, OverflowError) as error:
+            messagebox.showerror(
+                "Error al confirmar",
+                str(error)
+            )
+
 
 
 if __name__ == "__main__":
