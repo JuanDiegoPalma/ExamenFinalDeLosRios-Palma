@@ -7,6 +7,10 @@ from farmacia.modelo.cosmeticoBasico import CosmeticoBasico
 
 
 class ControladorFarmacia:
+    SUBTIPOS_POR_CATEGORIA = {
+        "Medicamento": ("Recetado", "VentaLibre"),
+        "Cosmetico": ("Premium", "Basico"),
+    }
 
     def __init__(self):
         self.estanteria = Estanteria()
@@ -23,8 +27,12 @@ class ControladorFarmacia:
 
         return cliente
     
-    def crear_producto(self, subtipo, precio_texto, adicional_texto=0):
-        
+    def crear_producto(self, categoria, subtipo, precio_texto, adicional_texto=0):
+        if categoria not in self.SUBTIPOS_POR_CATEGORIA:
+            raise ValueError("Seleccione una categoría válida.")
+        if subtipo not in self.SUBTIPOS_POR_CATEGORIA[categoria]:
+            raise ValueError("Seleccione un subtipo válido para la categoría.")
+
         try:
             precio = float(precio_texto)
             adicional= float(adicional_texto)
