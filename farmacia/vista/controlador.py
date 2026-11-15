@@ -26,7 +26,7 @@ class ControladorFarmacia:
         cliente = Persona(nombre, edad)
 
         return cliente
-    
+
     def crear_producto(self, categoria, subtipo, precio_texto, adicional_texto=0):
         if categoria not in self.SUBTIPOS_POR_CATEGORIA:
             raise ValueError("Seleccione una categoría válida.")
@@ -38,13 +38,13 @@ class ControladorFarmacia:
             adicional= float(adicional_texto)
         except (ValueError, TypeError):
             raise ValueError("El precio y el adicional deben ser números.")
-        
+
         if subtipo == "Recetado":
             producto = MedicamentoRecetado(precio, importe_adicional=adicional)
-        
+
         elif subtipo == "VentaLibre":
             producto = MedicamentoVentaLibre(precio, importe_adicional=adicional)
-        
+
         elif subtipo == "Premium":
             producto = CosmeticoPremium(precio, importe_adicional=adicional)
 
@@ -55,7 +55,7 @@ class ControladorFarmacia:
             raise ValueError("El subtipo de producto no es válido.")
 
         return producto
-    
+
     def confirmar_producto(self, producto):
         self.estanteria.almacenar_producto(producto)
-        return producto.ubicacion       
+        return producto.ubicacion

@@ -63,7 +63,7 @@ class InterfazFarmacia:
 
         ## Resultado del cálculo
         self.resultado = tk.StringVar(value="Precio final: -")
-        
+
         ## Invalidar el cálculo cuando el usuario modifica un campo
         for entrada in (
             self.entrada_nombre,
@@ -79,7 +79,7 @@ class InterfazFarmacia:
             text="Calcular precio",
             command=self.calcular_precio
         ).pack(pady=12)
-    
+
         ## Botón para confirmar la compra
         ttk.Button(
             formulario,
@@ -162,7 +162,7 @@ class InterfazFarmacia:
                 "Primero debe calcular el precio del producto."
             )
             return
-        
+
         if self.datos_calculados != self.obtener_datos_formulario():
 
             self.invalidar_calculo()
