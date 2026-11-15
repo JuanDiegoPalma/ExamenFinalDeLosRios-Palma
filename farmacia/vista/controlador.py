@@ -49,5 +49,5 @@ class ControladorFarmacia:
         return producto
     
     def confirmar_producto(self, producto):
-        self.estanteria.agregar_producto(producto)
+        self.estanteria.almacenar_producto(producto)
         return producto.ubicacion       
