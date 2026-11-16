@@ -9,4 +9,4 @@ class CosmeticoBasico(Cosmetico):
         return self.precio_base * 0.90 + extra
 
     def texto(self):
-        return "Cosmético Básico"
+        return "Producto cosmético de línea básica"

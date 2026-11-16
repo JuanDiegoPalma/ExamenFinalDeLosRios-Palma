@@ -4,6 +4,7 @@ from farmacia.modelo.medicamentoRecetado import MedicamentoRecetado
 from farmacia.modelo.medicamentoVentaLibre import MedicamentoVentaLibre
 from farmacia.modelo.cosmeticoPremium import CosmeticoPremium
 from farmacia.modelo.cosmeticoBasico import CosmeticoBasico
+from farmacia.modelo.medicamento import Medicamento
 
 
 class ControladorFarmacia:
@@ -35,7 +36,7 @@ class ControladorFarmacia:
 
         try:
             precio = float(precio_texto)
-            adicional= float(adicional_texto)
+            adicional = float(adicional_texto) if str(adicional_texto).strip() else 0.0
         except (ValueError, TypeError):
             raise ValueError("El precio y el adicional deben ser números.")
 
@@ -56,6 +57,19 @@ class ControladorFarmacia:
 
         return producto
 
-    def confirmar_producto(self, producto):
+
+    def confirmar_producto(self, producto, cliente):
+
+        ## Comprobar la edad para comprar medicamentos
+        if isinstance(producto, Medicamento):
+
+            if cliente.get_edad() < 18:
+                raise ValueError(
+                    "El cliente debe tener al menos 18 años "
+                    "para comprar medicamentos."
+                )
+
+        ## Almacenar el producto si cumple las condiciones
         self.estanteria.almacenar_producto(producto)
+
         return producto.ubicacion

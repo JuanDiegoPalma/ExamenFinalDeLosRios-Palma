@@ -131,8 +131,16 @@ class InterfazFarmacia:
         self.datos_calculados = None
         self.resultado.set("Precio final: -")
 
+
     def calcular_precio(self):
         try:
+            # Validar primero los datos del cliente
+            self.controlador.crear_cliente(
+                self.entrada_nombre.get(),
+                self.entrada_edad.get()
+            )
+
+            # Crear el producto
             producto = self.controlador.crear_producto(
                 self.combo_categoria.get(),
                 self.combo_subtipo.get(),
@@ -153,6 +161,7 @@ class InterfazFarmacia:
             self.datos_calculados = None
             self.resultado.set("Precio final: -")
             messagebox.showerror("Datos incorrectos", str(error))
+
 
     def confirmar_compra(self):
 
@@ -184,7 +193,7 @@ class InterfazFarmacia:
 
             producto = self.producto_pendiente
 
-            ubicacion = self.controlador.confirmar_producto(producto)
+            ubicacion = self.controlador.confirmar_producto(producto, cliente)
 
             precio_final = producto.calcular_precio(
                 producto.importe_adicional
@@ -292,10 +301,11 @@ class InterfazFarmacia:
 
         ocupados = self.controlador.estanteria.cantidad_ocupados
         libres = self.controlador.estanteria.espacios_libres
+        estado = "ESTANTERÍA COMPLETA" if libres == 0 else "Hay espacios disponibles"
 
         ttk.Label(
             ventana_estanteria,
-            text=f"Ocupados: {ocupados} | Libres: {libres}",
+            text=f"Ocupados: {ocupados} | Libres: {libres} | {estado}",
             font=("Arial", 12, "bold")
         ).pack(pady=12)
 

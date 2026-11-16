@@ -35,9 +35,6 @@ class Persona:
         if edad <= 0:
             raise ValueError("Edad incorrecta, la edad debe ser mayor a 0")
 
-        if edad < 18:
-            raise ValueError("Edad incorrecta, el cliente debe ser mayor de 18 años para registrarse")
-
         self._edad = edad
 
     def get_edad(self):
